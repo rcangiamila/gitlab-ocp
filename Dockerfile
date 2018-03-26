@@ -1,6 +1,6 @@
 FROM centos:centos7
 
-SHELL ["/bin/sh", "-c"],
+#SHELL ["/bin/sh", "-c"],
 
 ENV NAME=gitlab-ce \
     GITLAB_VERSION=10.60 \
