@@ -23,8 +23,9 @@ ENV GITLAB_REPOSIROTY_SCRIPT_URL="https://packages.gitlab.com/install/repositori
 
 RUN yum install -y epel-release
 
-RUN yum install -y --setopt=tsflags=nodocs ${INSTALL_PACKAGES} && \
-    rpm -V ${INSTALL_PACKAGES} && \
+RUN INSTALL_PACKAGES="ca-certificates openssh-server wget vim tzdata nano varnish gettext nss_wrapper curl sed" && \ 
+    yum install -y --setopt=tsflags=nodocs $INSTALL_PACKAGES && \
+    rpm -V $INSTALL_PACKAGES && \
     yum clean all
 
 RUN curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash
