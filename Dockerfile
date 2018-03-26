@@ -18,15 +18,14 @@ ENV TERM xterm
 EXPOSE 8443 8080 2222
 
 # Install required packages
-ENV INSTALL_PACKAGES="ca-certificates openssh-server wget vim tzdata nano varnish gettext nss_wrapper curl"
+ENV INSTALL_PACKAGES="ca-certificates openssh-server wget vim tzdata nano varnish gettext nss_wrapper curl sed"
 ENV GITLAB_REPOSIROTY_SCRIPT_URL="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh"
 
 RUN yum install -y epel-release
 
 RUN yum install -y --setopt=tsflags=nodocs ${INSTALL_PACKAGES} && \
     rpm -V ${INSTALL_PACKAGES} && \
-    yum clean all && \
-    sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
+    yum clean all
 
 RUN curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash
 
