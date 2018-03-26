@@ -45,27 +45,23 @@ echo
 sleep 3s
 
 # Copy gitlab.rb for the first time
-if [[ ! -e /etc/gitlab/gitlab.rb ]]; then
+if [[ ! -e /opt/gitlab/etc/gitlab/gitlab.rb ]]; then
 	echo "Installing gitlab.rb config..."
-	cp /opt/gitlab/etc/gitlab.rb.template /etc/gitlab/gitlab.rb
-	chmod 0600 /etc/gitlab/gitlab.rb
+	cp /opt/gitlab/etc/gitlab.rb.template /opt/gitlab/etc/gitlab/gitlab.rb
 fi
 
 # Generate ssh host key for the first time
-if [[ ! -f /etc/gitlab/ssh_host_rsa_key ]]; then
+if [[ ! -f /opt/gitlab/etc/gitlab/ssh_host_rsa_key ]]; then
 	echo "Generating ssh_host_rsa_key..."
-	ssh-keygen -f /etc/gitlab/ssh_host_rsa_key -N '' -t rsa
-	chmod 0600 /etc/gitlab/ssh_host_rsa_key
+	ssh-keygen -f /opt/gitlab/etc/gitlab/ssh_host_rsa_key -N '' -t rsa
 fi
-if [[ ! -f /etc/gitlab/ssh_host_ecdsa_key ]]; then
+if [[ ! -f /opt/gitlab/etc/gitlab/ssh_host_ecdsa_key ]]; then
 	echo "Generating ssh_host_ecdsa_key..."
-	ssh-keygen -f /etc/gitlab/ssh_host_ecdsa_key -N '' -t ecdsa
-	chmod 0600 /etc/gitlab/ssh_host_ecdsa_key
+	ssh-keygen -f /opt/gitlab/etc/gitlab/ssh_host_ecdsa_key -N '' -t ecdsa
 fi
-if [[ ! -f /etc/gitlab/ssh_host_ed25519_key ]]; then
+if [[ ! -f /opt/gitlab/etc/gitlab/ssh_host_ed25519_key ]]; then
 	echo "Generating ssh_host_ed25519_key..."
-	ssh-keygen -f /etc/gitlab/ssh_host_ed25519_key -N '' -t ed25519
-	chmod 0600 /etc/gitlab/ssh_host_ed25519_key
+	ssh-keygen -f /opt/gitlab/etc/gitlab/ssh_host_ed25519_key -N '' -t ed25519
 fi
 
 # Remove all services, the reconfigure will create them
@@ -73,7 +69,7 @@ echo "Preparing services..."
 rm -f /opt/gitlab/service/*
 ln -s /opt/gitlab/sv/sshd /opt/gitlab/service
 ln -sf /opt/gitlab/embedded/bin/sv /opt/gitlab/init/sshd
-mkdir -p /var/log/gitlab/sshd
+mkdir -p /opt/gitlab/var/log/gitlab/sshd
 
 # Start service manager
 echo "Starting services..."
@@ -84,8 +80,8 @@ GITLAB_OMNIBUS_CONFIG= /opt/gitlab/embedded/bin/runsvdir-start &
 # the preinst script has the database backup
 # It will not be executed, because all services are not yet started
 # They will be started when `reconfigure` is executed
-echo "Configuring GitLab package..."
-/var/lib/dpkg/info/${RELEASE_PACKAGE}.preinst upgrade
+#echo "Configuring GitLab package..."
+#/var/lib/dpkg/info/${RELEASE_PACKAGE}.preinst upgrade
 
 echo "Configuring GitLab..."
 gitlab-ctl reconfigure

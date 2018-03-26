@@ -26,7 +26,6 @@ RUN yum install -y epel-release
 RUN yum install -y --setopt=tsflags=nodocs ${INSTALL_PACKAGES} && \
     rpm -V ${INSTALL_PACKAGES} && \
     yum clean all && \
-    rm -rf /var/lib/apt/lists/* && \
     sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
 RUN curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash
@@ -50,7 +49,7 @@ COPY assets/ ${APP_HOME}/bin
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
     chmod -R g=u /etc/passwd && \
-    ${APP_HOME}/bin/setup
+    chmod -R g=u /etc/pam.d/sshd
 
 USER 1001
 
