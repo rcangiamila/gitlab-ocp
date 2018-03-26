@@ -18,14 +18,47 @@ objects:
   kind: ImageStream
   metadata:
     labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
       app: ${APPLICATION_NAME}
     name: ${APPLICATION_NAME}
   spec:
-    tags:
-    - from:
-        kind: DockerImage
-        name: gitlab/gitlab-ce:10.6.0-ce.0
-      name: gitlab-10.6.0
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${APPLICATION_NAME}:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: /
+      git:
+        uri: https://github.com/rcangiamila/gitlab-ocp.git
+      type: Git
+    strategy:
+      dockerStrategy:
+        dockerfilePath: Dockerfile
+      type: Docker
+    triggers:
+      - github:
+          secret: O6xJHmb-YAIiDPxoRrtH
+        type: GitHub
+      - generic:
+          secret: gxIn3u86-kvq74eCzYtq
+        type: Generic
+      - imageChange: {}
+        type: ImageChange
+      - type: ConfigChange
+  status:
+    lastVersion: 0
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -116,9 +149,9 @@ objects:
               memory: 1Gi
           terminationMessagePath: /dev/termination-log
           volumeMounts:
-          - mountPath: /etc/gitlab
+          - mountPath: /opt/gitlab/etc/gitlab
             name: gitlab-ce-volume-1
-          - mountPath: /gitlab-data
+          - mountPath: /opt/gitlab/gitlab-data
             name: gitlab-ce-volume-2
         dnsPolicy: ClusterFirst
         restartPolicy: Always
@@ -140,7 +173,7 @@ objects:
         - gitlab-ce
         from:
           kind: ImageStreamTag
-          name: ${APPLICATION_NAME}:gitlab-10.6.0
+          name: ${APPLICATION_NAME}:latest
       type: ImageChange
 - apiVersion: v1
   kind: DeploymentConfig
