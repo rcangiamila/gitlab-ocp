@@ -23,7 +23,7 @@ ENV GITLAB_REPOSIROTY_SCRIPT_URL="https://packages.gitlab.com/install/repositori
 
 RUN yum install -y epel-release
 
-RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish gettext nss_wrapper curl sed" && \ 
+RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish gettext nss_wrapper curl sed vim" && \ 
     yum install -y --setopt=tsflags=nodocs $INSTALL_PACKAGES && \
     rpm -V $INSTALL_PACKAGES && \
     yum clean all
@@ -31,6 +31,8 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
 RUN curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash
 
 RUN yum install -y gitlab-ce
+
+RUN rm -rf /var/cache/yum/*
 
 # Remove MOTD
 RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
@@ -40,11 +42,12 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p ${APP_HOME}/etc/gitlab && \
     mkdir -p ${APP_HOME}/var/opt/gitlab && \
     mkdir -p ${APP_HOME}/var/log/gitlab && \
+    mkdir -p ${APP_HOME}/gitlab-data && \
     mkdir -p ${APP_HOME}/bin
 
 # Copy assets
-COPY RELEASE ${APP_HOME}/
-COPY assets/ ${APP_HOME}/bin
+#COPY RELEASE ${APP_HOME}/
+COPY bin/ ${APP_HOME}/bin
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
