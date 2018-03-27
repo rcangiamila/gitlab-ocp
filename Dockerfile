@@ -42,6 +42,7 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p ${APP_HOME}/bin
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
+    sed 's/proc \/proc\/sys proc ro,nosuid,nodev,noexec,relatime 0 0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab && \
     echo "alias ulimit='ulimit -S'" >> /etc/bashrc
 
 # Copy assets

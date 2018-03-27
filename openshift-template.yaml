@@ -412,7 +412,7 @@ objects:
     resources:
       requests:
         storage: ${ETC_VOL_SIZE}
-    storageClassName: ssd
+    storageClassName: local-ssd
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
