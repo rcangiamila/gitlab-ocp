@@ -30,9 +30,10 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
 
 RUN curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash
 
-RUN yum install -y gitlab-ce
+RUN yum install -y gitlab-ce && \
+    yum clean all
 
-RUN rm -rf /var/cache/yum/*
+#RUN rm -rf /var/cache/yum/*
 
 # Remove MOTD
 RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
@@ -44,6 +45,9 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p ${APP_HOME}/var/log/gitlab && \
     mkdir -p ${APP_HOME}/gitlab-data && \
     mkdir -p ${APP_HOME}/bin
+
+RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
+    echo "alias ulimit='ulimit -S'" >> /etc/bashrc
 
 # Copy assets
 #COPY RELEASE ${APP_HOME}/
@@ -57,7 +61,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
 USER 1001
 
 # Define data volumes
-VOLUME ["/opt/gitlab"]
+VOLUME ["/opt/gitlab", "/opt/gitlab/etc/gitlab", "/opt/gitlab/gitlab-data"]
 
 WORKDIR ${APP_HOME}
 
