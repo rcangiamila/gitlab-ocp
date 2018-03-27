@@ -1,4 +1,4 @@
-Port 22
+Port 8022
 ChallengeResponseAuthentication no
 HostKey /etc/gitlab/ssh_host_rsa_key
 HostKey /etc/gitlab/ssh_host_ecdsa_key
@@ -7,7 +7,7 @@ Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
 MaxStartups 100:30:200
-AllowUsers git
+AllowUsers gitlab
 PrintMotd no
 PrintLastLog no
 PubkeyAuthentication yes

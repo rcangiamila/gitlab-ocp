@@ -45,6 +45,11 @@ COPY bin/ ${APP_HOME}/bin
 COPY assets/ /assets/
 RUN /assets/setup
 
+RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
+    cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/
+    chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
+
+
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
 
