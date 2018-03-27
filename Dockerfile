@@ -26,11 +26,8 @@ RUN yum install -y epel-release
 RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish gettext nss_wrapper curl sed" && \ 
     yum install -y --setopt=tsflags=nodocs $INSTALL_PACKAGES && \
     rpm -V $INSTALL_PACKAGES && \
-    yum clean all
-
-RUN curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash
-
-RUN yum install -y gitlab-ce && \
+    curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash && \
+    yum install -y gitlab-ce && \
     yum clean all
 
 #RUN rm -rf /var/cache/yum/*
