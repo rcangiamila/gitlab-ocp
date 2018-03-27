@@ -107,10 +107,10 @@ objects:
               redis['enable'] = false; gitlab_rails['redis_host']='${APPLICATION_NAME}-redis';
               unicorn['worker_processes'] = ${UNICORN_WORKERS}; manage_accounts['enable']
               = true; manage_storage_directories['manage_etc'] = false; gitlab_shell['auth_file']
-              = '/gitlab-data/ssh/authorized_keys'; git_data_dirs({ 'default' => {
-              'path' => '/gitlab-data/git-data' } }); gitlab_rails['shared_path']
-              = '/gitlab-data/shared'; gitlab_rails['uploads_directory'] = '/gitlab-data/uploads';
-              gitlab_ci['builds_directory'] = '/gitlab-data/builds'; prometheus_monitoring['enable']
+              = '/opt/gitlab/gitlab-data/ssh/authorized_keys'; git_data_dirs({ 'default' => {
+              'path' => '/opt/gitlab/gitlab-data/git-data' } }); gitlab_rails['shared_path']
+              = '/opt/gitlab/gitlab-data/shared'; gitlab_rails['uploads_directory'] = '/opt/gitlab/gitlab-data/uploads';
+              gitlab_ci['builds_directory'] = '/opt/gitlab/gitlab-data/builds'; prometheus_monitoring['enable']
               = false;
           image: gitlab-ce
           imagePullPolicy: IfNotPresent

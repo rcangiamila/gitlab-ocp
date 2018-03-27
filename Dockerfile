@@ -64,11 +64,11 @@ WORKDIR ${APP_HOME}
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
-CMD update-permissions
+#CMD update-permissions
 
-CMD wrapper
+#CMD wrapper
 
-HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-CMD gitlab-healthcheck --fail
+#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+#CMD gitlab-healthcheck --fail
 
-CMD bash
+CMD ["/bin/bash"]
