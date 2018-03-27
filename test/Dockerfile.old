@@ -29,46 +29,56 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     yum install -y gitlab-ce && \
     yum clean all
 
-RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
-    sed 's/proc \/proc\/sys proc ro,nosuid,nodev,noexec,relatime 0 0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab && \
-    echo "alias ulimit='ulimit -S'" >> /etc/bashrc
-
 # Remove MOTD
 RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
 RUN ln -fs /dev/null /run/motd.dynamic
 
 RUN mkdir -p ${APP_HOME} && \
+    mkdir -p ${APP_HOME}/nginx && \
+    mkdir -p ${APP_HOME}/redis && \
+    mkdir -p ${APP_HOME}/postgresql && \
+    mkdir -p ${APP_HOME}/mattermost && \
+    mkdir -p ${APP_HOME}/registry && \
+    mkdir -p ${APP_HOME}/prometheus && \
+    mkdir -p ${APP_HOME}/consul && \
+    mkdir -p ${APP_HOME}/etc/gitlab && \
+    mkdir -p /etc/gitlab && \
+    mkdir -p ${APP_HOME}/log/gitlab && \
+    mkdir -p ${APP_HOME}/gitlab-data && \
     mkdir -p ${APP_HOME}/bin
 
+RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
+    sed 's/proc \/proc\/sys proc ro,nosuid,nodev,noexec,relatime 0 0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab && \
+    echo "alias ulimit='ulimit -S'" >> /etc/bashrc
+
 # Copy assets
+#COPY RELEASE ${APP_HOME}/
 COPY bin/ ${APP_HOME}/bin
 COPY assets/ /assets/
-RUN /assets/setup
 
-# Resolve error: TERM environment variable not set.
-ENV TERM xterm
+RUN /assets/setup
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
-    chown -R 1001:0 /opt/gitlab && \
     chown -R 1001:0 /etc/gitlab && \
-    chown -R 1001:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd && \
-
-# Expose web & ssh
-EXPOSE 8443 8080 2222
-
-# Define data volumes
-VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
+    chmod -R g=u /etc/pam.d/sshd
 
 USER 1001
+
+# Define data volumes
+VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/opt/gitlab/log/gitlab", "/var/opt/gitlab/gitlab-data"]
 
 WORKDIR ${APP_HOME}
 
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
-CMD ["/assets/wrapper"]
+#CMD update-permissions
 
-HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+#CMD wrapper
+
+#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+#CMD gitlab-healthcheck --fail
+
+CMD ["/bin/bash"]

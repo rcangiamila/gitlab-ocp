@@ -348,11 +348,11 @@ objects:
     - name: 22-ssh
       port: 22
       protocol: TCP
-      targetPort: 22
+      targetPort: 2222
     - name: 80-http
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
     selector:
       app: ${APPLICATION_NAME}
       deploymentconfig: ${APPLICATION_NAME}
@@ -412,7 +412,6 @@ objects:
     resources:
       requests:
         storage: ${ETC_VOL_SIZE}
-    storageClassName: local-ssd
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
