@@ -94,7 +94,7 @@ detect_os ()
 finalize_yum_repo ()
 {
   echo "Installing pygpgme to verify GPG signatures..."
-  yum install -y pygpgme --disablerepo='gitlab_gitlab-ee'
+  yum install -y pygpgme --disablerepo='gitlab_gitlab-ce'
   pypgpme_check=`rpm -qa | grep -qw pygpgme`
   if [ "$?" != "0" ]; then
     echo
@@ -105,11 +105,11 @@ finalize_yum_repo ()
     echo
 
     # set the repo_gpgcheck option to 0
-    sed -i'' 's/repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/gitlab_gitlab-ee.repo
+    sed -i'' 's/repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/gitlab_gitlab-ce.repo
   fi
 
   echo "Installing yum-utils..."
-  yum install -y yum-utils --disablerepo='gitlab_gitlab-ee'
+  yum install -y yum-utils --disablerepo='gitlab_gitlab-ce'
   yum_utils_check=`rpm -qa | grep -qw yum-utils`
   if [ "$?" != "0" ]; then
     echo
@@ -118,13 +118,13 @@ finalize_yum_repo ()
     echo
   fi
 
-  echo "Generating yum cache for gitlab_gitlab-ee..."
-  yum -q makecache -y --disablerepo='*' --enablerepo='gitlab_gitlab-ee'
+  echo "Generating yum cache for gitlab_gitlab-ce..."
+  yum -q makecache -y --disablerepo='*' --enablerepo='gitlab_gitlab-ce'
 }
 
 finalize_zypper_repo ()
 {
-  zypper --gpg-auto-import-keys refresh gitlab_gitlab-ee
+  zypper --gpg-auto-import-keys refresh gitlab_gitlab-ce
 }
 
 main ()
@@ -133,12 +133,12 @@ main ()
   curl_check
 
 
-  yum_repo_config_url="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/config_file.repo?os=${os}&dist=${dist}&source=script"
+  yum_repo_config_url="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/config_file.repo?os=${os}&dist=${dist}&source=script"
 
   if [ "${os}" = "sles" ] || [ "${os}" = "opensuse" ]; then
-    yum_repo_path=/etc/zypp/repos.d/gitlab_gitlab-ee.repo
+    yum_repo_path=/etc/zypp/repos.d/gitlab_gitlab-ce.repo
   else
-    yum_repo_path=/etc/yum.repos.d/gitlab_gitlab-ee.repo
+    yum_repo_path=/etc/yum.repos.d/gitlab_gitlab-ce.repo
   fi
 
   echo "Downloading repository file: ${yum_repo_config_url}"
