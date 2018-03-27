@@ -30,8 +30,6 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     yum install -y gitlab-ce && \
     yum clean all
 
-#RUN rm -rf /var/cache/yum/*
-
 # Remove MOTD
 RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
 RUN ln -fs /dev/null /run/motd.dynamic
@@ -65,6 +63,8 @@ WORKDIR ${APP_HOME}
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
+CMD update-permissions
+
 CMD wrapper
 
 HEALTHCHECK --interval=60s --timeout=30s --retries=5 \

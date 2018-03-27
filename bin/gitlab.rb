@@ -15,4 +15,4 @@ external_url "http://#{host}"
 eval ENV["GITLAB_OMNIBUS_CONFIG"].to_s # rubocop:disable Security/Eval
 
 # Load configuration stored in /etc/gitlab/gitlab.rb
-from_file("/etc/gitlab/gitlab.rb")
+from_file("/opt/gitlab/etc/gitlab/gitlab.rb")
