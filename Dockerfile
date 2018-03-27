@@ -13,8 +13,6 @@ ENV PATH=/opt/gitlab/embedded/bin:/opt/gitlab/bin:/assets:${APP_HOME}/bin:$PATH
 
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
-# Expose web & ssh
-EXPOSE 8443 8080 2222
 
 # Install required packages
 ENV INSTALL_PACKAGES="ca-certificates openssh-server wget vim tzdata nano varnish gettext nss_wrapper curl sed"
@@ -58,7 +56,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 /opt/gitlab && \
     chown -R 1001:0 /etc/gitlab && \
     chown -R 1001:0 /var/log/gitlab && \
-    chmod -R g=u /etc/passwd && \
+    chmod -R g=u /etc/passwd
 
 # Expose web & ssh
 EXPOSE 8443 8080 2222
