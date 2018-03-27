@@ -70,3 +70,5 @@ CMD wrapper
 
 HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
 CMD gitlab-healthcheck --fail
+
+CMD bash
