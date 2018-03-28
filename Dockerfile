@@ -47,8 +47,8 @@ RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
     cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
     chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
 
-RUN rm -rf /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/recipes
+#RUN rm -rf /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+#    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/recipes
 
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
