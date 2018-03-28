@@ -20,7 +20,7 @@ sed -i "s/external_url 'GENERATED_EXTERNAL_URL'/# external_url 'GENERATED_EXTERN
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/show_config.rb
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/config.rb
 
-groupadd -g 998 git
+groupadd -g 1001 git
 
 useradd -m -u 1001 -g 0 -m -s /bin/sh -d /var/opt/gitlab git
 
