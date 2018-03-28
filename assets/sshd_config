@@ -7,7 +7,7 @@ Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
 MaxStartups 100:30:200
-AllowUsers gitlab
+AllowUsers git
 PrintMotd no
 PrintLastLog no
 PubkeyAuthentication yes

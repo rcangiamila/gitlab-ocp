@@ -2,7 +2,7 @@
 
 if ! whoami &> /dev/null; then
   if [ -w /etc/passwd ]; then
-    echo "${USER_NAME:-gitlab}:x:$(id -u):0:${USER_NAME:-gitlab} user:${HOME}:/sbin/nologin" >> /etc/passwd
+    echo "${USER_NAME:-git}:x:$(id -u):0:${USER_NAME:-git} user:${HOME}:/sbin/nologin" >> /etc/passwd
   fi
 fi
 exec "$@"
