@@ -20,7 +20,9 @@ sed -i "s/external_url 'GENERATED_EXTERNAL_URL'/# external_url 'GENERATED_EXTERN
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/show_config.rb
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/config.rb
 
-useradd -m -u 1001 -g root -m -s /bin/sh -d /var/opt/gitlab git
+groupadd -g 998 git
+
+useradd -m -u 1001 -g 0 -m -s /bin/sh -d /var/opt/gitlab git
 
 # Copy gitlab.rb for the first time
 if [[ ! -e /etc/gitlab/gitlab.rb ]]; then
