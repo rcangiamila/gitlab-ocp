@@ -41,20 +41,15 @@ RUN mkdir -p ${APP_HOME} && \
 COPY bin/ ${APP_HOME}/bin
 COPY assets/ /assets/
 
-RUN rm -f /etc/mtab && \
-    cp /assets/mtab /etc/mtab
 
-RUN cat /etc/mtab
+RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
+    cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
+    chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
+
+RUN rm -rf /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/recipes
 
 RUN /assets/setup
-
-#RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
-#    cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
-#    chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
-
-#RUN rm -rf /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-#    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/recipes
-
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
 
