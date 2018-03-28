@@ -2,7 +2,7 @@
 manage_accounts['enable'] = false
 
 # GitLab
-user['username'] = "git"
+#user['username'] = "git"
 user['uid'] = 1001
 user['gid'] = 0
 
