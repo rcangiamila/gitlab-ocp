@@ -47,14 +47,19 @@ RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
     cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
     chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
 
+RUN rm -rf /opt/gitlab/embedded/cookbooks/cache/cookbooks/gitlab/recipes/default.rb && \
+    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/cache/cookbooks/gitlab/recipes
 
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
+    chmod -R a+rwx /opt/gitlab && \
     chown -R 1001:0 /opt/gitlab && \
+    chmod -R a+rwx /etc/gitlab && \
     chown -R 1001:0 /etc/gitlab && \
+    chmod -R a+rwx /var/log/gitlab && \
     chown -R 1001:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd
 
@@ -73,5 +78,5 @@ ENTRYPOINT [ "uid_entrypoint" ]
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
 
-HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+#CMD /opt/gitlab/bin/gitlab-healthcheck --fail
