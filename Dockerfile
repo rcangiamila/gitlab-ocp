@@ -29,8 +29,11 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
 
 RUN cat /etc/mtab
 
+RUN sed 's/proc\s*\/proc\/sys\s*proc\s*ro,nosuid,nodev,noexec,relatime\s*0\*0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab
+
+RUN cat /etc/mtab
+
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
-    sed 's/proc \/proc\/sys proc ro,nosuid,nodev,noexec,relatime 0 0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab && \
     echo "alias ulimit='ulimit -S'" >> /etc/bashrc
 
 # Remove MOTD
@@ -43,8 +46,6 @@ RUN mkdir -p ${APP_HOME} && \
 # Copy assets
 COPY bin/ ${APP_HOME}/bin
 COPY assets/ /assets/
-
-USER root
 
 RUN /assets/setup
 
