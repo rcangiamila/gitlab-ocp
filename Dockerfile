@@ -39,6 +39,9 @@ RUN mkdir -p ${APP_HOME} && \
 
 # Copy assets
 COPY bin/ ${APP_HOME}/bin
+
+USER root
+
 COPY assets/ /assets/
 
 
