@@ -27,12 +27,6 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     yum install -y gitlab-ce && \
     yum clean all
 
-RUN sed 's/sys proc ro/sys proc rw/g' -i /etc/mtab
-
-#RUN sed 's/proc\s*\/proc\/sys\s*proc\s*ro,nosuid,nodev,noexec,relatime\s*0\s*0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab
-
-RUN cat /etc/mtab
-
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
     echo "alias ulimit='ulimit -S'" >> /etc/bashrc
 
@@ -46,6 +40,11 @@ RUN mkdir -p ${APP_HOME} && \
 # Copy assets
 COPY bin/ ${APP_HOME}/bin
 COPY assets/ /assets/
+
+RUN rm -f /etc/mtab && \
+    cp /assets/mtab /etc/mtab
+
+RUN cat /etc/mtab
 
 RUN /assets/setup
 
