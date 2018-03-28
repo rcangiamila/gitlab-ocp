@@ -27,7 +27,9 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     yum install -y gitlab-ce && \
     yum clean all
 
-RUN sed 's/proc\s*\/proc\/sys\s*proc\s*ro,nosuid,nodev,noexec,relatime\s*0\s*0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab
+RUN sed 's/sys proc ro/sys proc rw/g' -i /etc/mtab
+
+#RUN sed 's/proc\s*\/proc\/sys\s*proc\s*ro,nosuid,nodev,noexec,relatime\s*0\s*0/proc \/proc\/sys proc rw,nosuid,nodev,noexec,relatime 0 0/g' -i /etc/mtab
 
 RUN cat /etc/mtab
 
