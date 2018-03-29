@@ -1,18 +1,16 @@
 # Manage accounts with docker
 manage_accounts['enable'] = false
+postgresql['enable'] = false
+redis['enable'] = false
 
 # GitLab
-#user['username'] = "git"
-user['uid'] = 1001
+user['username'] = "git"
 user['gid'] = 0
 
 # Web server
-web_server['uid'] = 1001
+web_server['username'] = "git"
 web_server['gid'] = 0
-
 web_server['listen_port'] = 8080
-
-nginx['listen_port'] = 8080
 
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'

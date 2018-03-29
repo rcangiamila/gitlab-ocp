@@ -40,52 +40,6 @@ useradd -m -u 1006 -g registry -m -s /bin/sh -d /var/opt/gitlab/registry registr
 useradd -m -u 1007 -g gitlab-prometheus -m -s /bin/sh -d /var/opt/gitlab/prometheus gitlab-prometheus
 useradd -m -u 1008 -g gitlab-consul -m -s /bin/sh -d /var/opt/gitlab/consul gitlab-consul
 
-
-# Copy gitlab.rb for the first time
-if [[ ! -e /etc/gitlab/gitlab.rb ]]; then
-        echo "Installing gitlab.rb config..."
-        cp /opt/gitlab/etc/gitlab.rb.template /etc/gitlab/gitlab.rb
-fi
-
-# Generate ssh host key for the first time
-if [[ ! -f /etc/gitlab/ssh_host_rsa_key ]]; then
-        echo "Generating ssh_host_rsa_key..."
-        ssh-keygen -f /etc/gitlab/ssh_host_rsa_key -N '' -t rsa
-fi
-if [[ ! -f /etc/gitlab/ssh_host_ecdsa_key ]]; then
-        echo "Generating ssh_host_ecdsa_key..."
-        ssh-keygen -f /etc/gitlab/ssh_host_ecdsa_key -N '' -t ecdsa
-fi
-if [[ ! -f /etc/gitlab/ssh_host_ed25519_key ]]; then
-        echo "Generating ssh_host_ed25519_key..."
-        ssh-keygen -f /etc/gitlab/ssh_host_ed25519_key -N '' -t ed25519
-fi
-
-# Remove all services, the reconfigure will create them
-echo "Preparing services..."
-rm -f /opt/gitlab/service/*
-ln -s /opt/gitlab/sv/sshd /opt/gitlab/service
-ln -sf /opt/gitlab/embedded/bin/sv /opt/gitlab/init/sshd
-mkdir -p /var/log/gitlab/sshd
-
-# Start service manager
-echo "Starting services..."
-GITLAB_OMNIBUS_CONFIG= /opt/gitlab/embedded/bin/runsvdir-start &
-
-echo "Configuring GitLab..."
-gitlab-ctl reconfigure
-
-# Make sure PostgreSQL is at the latest version.
-# If it fails, print a message with a workaround and exit
-if [ "${GITLAB_SKIP_PG_UPGRADE}" != true ]; then
-    gitlab-ctl pg-upgrade -w || failed_pg_upgrade
-fi
-
-if [ -n "${GITLAB_POST_RECONFIGURE_SCRIPT+x}" ]; then
-  echo "Runnning Post Reconfigure Script..."
-  eval "${GITLAB_POST_RECONFIGURE_SCRIPT}"
-fi
-
 chmod -R a+rwx /opt/gitlab
 chown -R 1001:0 /opt/gitlab
 

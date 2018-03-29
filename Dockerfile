@@ -27,8 +27,7 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     yum install -y gitlab-ce && \
     yum clean all
 
-RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd && \
-    echo "alias ulimit='ulimit -S'" >> /etc/bashrc
+RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
 # Remove MOTD
 RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
@@ -39,14 +38,11 @@ RUN mkdir -p ${APP_HOME} && \
 
 # Copy assets
 COPY bin/ ${APP_HOME}/bin
-
-USER root
-
 COPY assets/ /assets/
 
-RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
-    cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
-    chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
+#RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
+#    cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
+#    chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
 
 RUN /assets/setup
 # Resolve error: TERM environment variable not set.
@@ -68,7 +64,7 @@ EXPOSE 8443 8080 2222
 # Define data volumes
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 
-USER 1001
+USER git
 
 WORKDIR ${APP_HOME}
 
