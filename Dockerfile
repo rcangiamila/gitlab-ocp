@@ -64,14 +64,14 @@ EXPOSE 8443 8080 2222
 # Define data volumes
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 
-USER git
+USER 1001
 
-WORKDIR ${APP_HOME}
+#WORKDIR ${APP_HOME}
 
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
 
-#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-#CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+CMD /opt/gitlab/bin/gitlab-healthcheck --fail
