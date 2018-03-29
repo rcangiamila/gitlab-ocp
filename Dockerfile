@@ -5,9 +5,9 @@ FROM centos:centos7
 ENV NAME=gitlab-ce \
     GITLAB_VERSION=10.60 \
     GITLAB_SHORT_VER=106 \
-    VERSION=0
-    PACKAGECLOUD_REPO=gitlab-ce
-    RELEASE_PACKAGE=gitlab-ce
+    VERSION=0 \
+    PACKAGECLOUD_REPO=gitlab-ce \
+    RELEASE_PACKAGE=gitlab-ce \
     RELEASE_VERSION=10.61-ce
 
 ENV APP_HOME=/opt/gitlab
