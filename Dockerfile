@@ -29,6 +29,11 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     yum install -y gitlab-ce && \
     yum clean all
 
+RUN mkdir -p ${APP_HOME} && \
+    mkdir -p /etc/gitlab && \
+    mkdir -p /var/opt/gitlab && \
+    mkdir -p /var/log/gitlab
+
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
 # Remove MOTD
