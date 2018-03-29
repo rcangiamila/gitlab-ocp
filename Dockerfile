@@ -59,7 +59,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chmod -R a+rwx /var/log/gitlab && \
     chown -R 1001:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd && \
-    chmow -R g=u /etc/security/limits.conf
+    chmod -R g=u /etc/security/limits.conf
 
 # Expose web & ssh
 EXPOSE 8443 8080 2222
