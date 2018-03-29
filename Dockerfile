@@ -65,7 +65,7 @@ ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 ENV TERM xterm
 
 ####TEST
-#RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
+RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \

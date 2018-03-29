@@ -13,9 +13,9 @@ chmod a+x /opt/gitlab/sv/sshd/run /opt/gitlab/sv/sshd/log/run
 mkdir -p /var/run/sshd
 
 # Remove current gitlab.rb file
-rm -f /etc/gitlab/gitlab.rb
+#rm -f /etc/gitlab/gitlab.rb
 
-cp gitlab.rb /etc/gitlab/gitlab.rb
+#cp gitlab.rb /etc/gitlab/gitlab.rb
 
 # Patch omnibus package
 #sed -i "s/external_url 'GENERATED_EXTERNAL_URL'/# external_url 'GENERATED_EXTERNAL_URL'/" /opt/gitlab/etc/gitlab.rb.template
