@@ -32,7 +32,16 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
 RUN mkdir -p ${APP_HOME} && \
     mkdir -p /etc/gitlab && \
     mkdir -p /var/opt/gitlab && \
-    mkdir -p /var/log/gitlab
+    mkdir -p /var/log/gitlab && \
+    mkdir -p /var/opt/gitlab/git-data && \
+    mkdir -p /var/opt/gitlab/git-data/repositories && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/shared && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/shared/artifacts && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/shared/lfs-objects && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/uploads && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/shared/pages && \
+    mkdir -p /var/opt/gitlab/gitlab-ci/builds && \
+    mkdir -p /var/opt/gitlab/.ssh
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
@@ -81,9 +90,7 @@ WORKDIR ${APP_HOME}
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
-#CMD ["/assets/wrapper"]
+CMD ["/assets/wrapper"]
 
-#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-#CMD /opt/gitlab/bin/gitlab-healthcheck --fail
-
-CMD bash
+HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+CMD /opt/gitlab/bin/gitlab-healthcheck --fail
