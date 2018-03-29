@@ -69,7 +69,7 @@ VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 
 USER 1001
 
-WORKDIR ${WORKDIR}
+WORKDIR ${APP_HOME}
 
 ENTRYPOINT [ "/assets/uid_entrypoint" ]
 
