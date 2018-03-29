@@ -67,6 +67,8 @@ ENV TERM xterm
 ####TEST
 RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
 
+RUN cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
+
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
     chmod -R a+rwx /var/opt/gitlab && \
