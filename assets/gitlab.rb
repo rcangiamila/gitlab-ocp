@@ -4,11 +4,11 @@ postgresql['enable'] = false
 redis['enable'] = false
 
 # GitLab
-user['username'] = "git"
+user['username'] = 'git'
 user['gid'] = 0
 
 # Web server
-web_server['username'] = "git"
+web_server['username'] = 'git'
 web_server['gid'] = 0
 web_server['listen_port'] = 8080
 

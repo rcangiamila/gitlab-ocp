@@ -65,6 +65,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
+    chmod -R g=u /etc/gitlab/gitlab.rb && \
     chmod -R a+rwx /assets && \
     chown -R 1001:0 /assets
 
@@ -81,7 +82,9 @@ WORKDIR ${APP_HOME}
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
-CMD ["/assets/wrapper"]
+#CMD ["/assets/wrapper"]
 
-HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+#CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+
+CMD bash
