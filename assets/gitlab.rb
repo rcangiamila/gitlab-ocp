@@ -1,4 +1,6 @@
 # Manage accounts with docker
+node['gitlab']['gitlab-ci']['user'] = 'git'
+
 manage_accounts['enable'] = false
 postgresql['enable'] = false
 redis['enable'] = false

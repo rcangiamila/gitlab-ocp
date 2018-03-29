@@ -65,7 +65,6 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
-    chmod -R g=u /etc/gitlab/gitlab.rb && \
     chmod -R a+rwx /assets && \
     chown -R 1001:0 /assets
 
