@@ -6,10 +6,12 @@ ENV NAME=gitlab-ce \
     GITLAB_VERSION=10.60 \
     GITLAB_SHORT_VER=106 \
     VERSION=0
+    PACKAGECLOUD_REPO=gitlab-ce
+    RELEASE_PACKAGE=gitlab-ce
+    RELEASE_VERSION=10.61-ce
 
-ENV APP_HOME=/var/opt/gitlab
+ENV APP_HOME=/opt/gitlab
 ENV HOME=${APP_HOME}
-ENV PATH=/opt/gitlab/embedded/bin:/opt/gitlab/bin:/assets:${APP_HOME}/bin:$PATH
 
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
@@ -33,30 +35,31 @@ RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so
 RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
 RUN ln -fs /dev/null /run/motd.dynamic
 
-RUN mkdir -p ${APP_HOME} && \
-    mkdir -p ${APP_HOME}/bin
+COPY RELEASE /
 
 # Copy assets
-COPY bin/ ${APP_HOME}/bin
 COPY assets/ /assets/
 
-#RUN rm -rf /opt/gitlab/embedded/bin/runsvdir-start && \
-#    cp ${APP_HOME}/bin/runsvdir-start /opt/gitlab/embedded/bin/ && \
-#    chmod a+x /opt/gitlab/embedded/bin/runsvdir-start
+RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
+    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
+    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
 
 RUN /assets/setup
+
+ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
-    chmod -R a+rwx /opt/gitlab && \
-    chown -R 1001:0 /opt/gitlab && \
+    chmod -R a+rwx /var/opt/gitlab && \
+    chown -R 1001:0 /var/opt/gitlab && \
     chmod -R a+rwx /etc/gitlab && \
     chown -R 1001:0 /etc/gitlab && \
     chmod -R a+rwx /var/log/gitlab && \
     chown -R 1001:0 /var/log/gitlab && \
-    chmod -R g=u /etc/passwd
+    chmod -R g=u /etc/passwd && \
+    chmow -R g=u /etc/security/limits.conf
 
 # Expose web & ssh
 EXPOSE 8443 8080 2222
@@ -64,11 +67,11 @@ EXPOSE 8443 8080 2222
 # Define data volumes
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 
-#USER 1001
+USER 1001
 
-#WORKDIR ${APP_HOME}
+WORKDIR ${WORKDIR}
 
-ENTRYPOINT [ "uid_entrypoint" ]
+ENTRYPOINT [ "/assets/uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
