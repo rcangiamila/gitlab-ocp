@@ -6,14 +6,6 @@ manage_accounts['enable'] = false
 user['uid'] = 1001
 user['gid'] = 0
 
-# Postgresql (not needed when using external Postgresql)
-postgresql['uid'] = 1001
-postgresql['gid'] = 0
-
-# Redis (not needed when using external Redis)
-redis['uid'] = 1001
-redis['gid'] = 0
-
 # Web server
 web_server['uid'] = 1001
 web_server['gid'] = 0

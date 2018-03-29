@@ -1,4 +1,4 @@
-Port 8022
+Port 2222
 ChallengeResponseAuthentication no
 HostKey /etc/gitlab/ssh_host_rsa_key
 HostKey /etc/gitlab/ssh_host_ecdsa_key
@@ -11,7 +11,7 @@ AllowUsers git
 PrintMotd no
 PrintLastLog no
 PubkeyAuthentication yes
-AuthorizedKeysFile %h/.ssh/authorized_keys /gitlab-data/ssh/authorized_keys
+AuthorizedKeysFile %h/.ssh/authorized_keys /opt/gitlab/gitlab-data/ssh/authorized_keys
 
 # Fix: User username not allowed because account is locked
 # With "UsePAM yes" the "!" is seen as a password disabled account and not fully locked so ssh public key login works
