@@ -71,7 +71,7 @@ USER 1001
 
 WORKDIR ${APP_HOME}
 
-ENTRYPOINT [ "/assets/uid_entrypoint" ]
+ENTRYPOINT [ "uid_entrypoint" ]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
