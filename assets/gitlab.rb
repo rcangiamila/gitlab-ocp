@@ -1,15 +1,16 @@
 # Manage accounts with docker
-node['gitlab']['gitlab-ci']['user'] = 'git'
-
-manage_storage_directories['enable'] = false
+#node['gitlab']['gitlab-ci']['user'] = 'git'
 
 manage_accounts['enable'] = false
+manage_storage_directories['enable'] = false
 postgresql['enable'] = false
 redis['enable'] = false
 
 # GitLab
 user['username'] = 'git'
+user['group'] = 'root'
 user['gid'] = 0
+#user['home'] = "/var/opt/gitlab"
 
 # Web server
 web_server['username'] = 'git'
