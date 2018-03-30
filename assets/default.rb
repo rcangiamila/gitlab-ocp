@@ -69,7 +69,7 @@ if node['gitlab']['gitlab-rails']['enable']
   include_recipe "gitlab::gitlab-rails"
 end
 
-include_recipe "gitlab::gitlab-ci-proxying"
+#include_recipe "gitlab::gitlab-ci-proxying"
 
 include_recipe "gitlab::selinux"
 

@@ -73,7 +73,7 @@ ENV TERM xterm
 RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
     cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
-USER root
+#USER root
 
 RUN /assets/setup
 
