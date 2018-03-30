@@ -27,8 +27,8 @@ include_recipe 'gitlab::config'
 
 directory "/etc/gitlab" do
   owner "git"
-  group "0"
-  mode "0775"
+  group "root"
+  mode "0777"
   only_if { node['gitlab']['manage-storage-directories']['manage_etc'] }
 end.run_action(:create)
 
