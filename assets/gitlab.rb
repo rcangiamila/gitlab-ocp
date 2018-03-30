@@ -6,6 +6,12 @@ manage_storage_directories['enable'] = false
 postgresql['enable'] = false
 redis['enable'] = false
 
+gitlab_shell['auth_file'] = '/gitlab-data/ssh/authorized_keys'
+git_data_dirs({ 'default' => { 'path' => '/gitlab-data/git-data' } }); 
+gitlab_rails['shared_path'] = '/gitlab-data/shared'; 
+gitlab_rails['uploads_directory'] = '/gitlab-data/uploads'; 
+gitlab_ci['builds_directory'] = '/gitlab-data/builds';
+
 # GitLab
 user['username'] = 'git'
 user['group'] = 'root'
@@ -16,6 +22,8 @@ user['gid'] = 0
 web_server['username'] = 'git'
 web_server['gid'] = 0
 web_server['listen_port'] = 8080
+
+gitlab_rails['gitlab_shell_ssh_port'] = 2222
 
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
