@@ -11,7 +11,8 @@ ENV NAME=gitlab-ce \
     RELEASE_VERSION=10.61-ce
 
 ENV APP_HOME=/opt/gitlab
-ENV HOME=${APP_HOME}
+ENV HOME=/var/opt/gitlab
+#ENV HOME=${APP_HOME}
 
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
