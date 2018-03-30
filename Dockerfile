@@ -60,17 +60,20 @@ RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
     cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
     chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
 
-RUN /assets/setup
+###FIXME
+#RUN /assets/setup
 
 ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
-# Resolve error: TERM environment variable not set.
+
 ENV TERM xterm
 
 ####TEST
-#RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
+RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
 
 RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
     cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
+
+RUN /assets/setup
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \

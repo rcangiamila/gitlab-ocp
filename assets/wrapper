@@ -27,6 +27,7 @@ if [[ ! -e /etc/gitlab/gitlab.rb ]]; then
 fi
 
 # Generate ssh host key for the first time
+###TEST
 if [[ ! -f /etc/gitlab/ssh_host_rsa_key ]]; then
         echo "Generating ssh_host_rsa_key..."
         ssh-keygen -f /etc/gitlab/ssh_host_rsa_key -N '' -t rsa
