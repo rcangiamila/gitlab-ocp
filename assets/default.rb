@@ -40,7 +40,7 @@ directory "Create /var/opt/gitlab" do
   path "/var/opt/gitlab"
   owner "git"
   group "root"
-  mode "0755"
+  mode "0777"
   recursive true
   action :create
 end
@@ -48,14 +48,14 @@ end
 directory "#{install_dir}/embedded/etc" do
   owner "git"
   group "root"
-  mode "0755"
+  mode "0777"
   recursive true
   action :create
 end
 
 template "#{install_dir}/embedded/etc/gitconfig" do
   source "gitconfig-system.erb"
-  mode 0755
+  mode 0777
   variables gitconfig: node['gitlab']['omnibus-gitconfig']['system']
 end
 

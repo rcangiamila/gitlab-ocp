@@ -28,7 +28,8 @@ RUN INSTALL_PACKAGES="ca-certificates openssh-server wget tzdata nano varnish ge
     rpm -V $INSTALL_PACKAGES && \
     curl ${GITLAB_REPOSIROTY_SCRIPT_URL} | bash && \
     yum install -y gitlab-ce && \
-    yum clean all
+    yum clean all && \
+    rm -rf /var/cache/yum
 
 RUN mkdir -p ${APP_HOME} && \
     mkdir -p /etc/gitlab && \
