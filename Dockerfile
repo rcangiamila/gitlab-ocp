@@ -115,7 +115,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
 EXPOSE 8443 8080 2222
 
 # Define data volumes
-VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
+VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
 
 USER 1001
 
