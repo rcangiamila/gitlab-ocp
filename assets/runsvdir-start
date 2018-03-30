@@ -21,7 +21,7 @@ ulimit -S  -c 0
 ulimit -S  -d unlimited
 ulimit -S  -e 0
 ulimit -S  -f unlimited
-ulimit -S  -i 62793
+#ulimit -S  -i 62793
 ulimit -S  -l 64
 ulimit -S  -m unlimited
 # WARNING: Increasing the global file descriptor limit increases RAM
@@ -31,7 +31,7 @@ ulimit -S  -q 819200
 ulimit -S  -r 0
 ulimit -S  -s 10240
 ulimit -S  -t unlimited
-ulimit -S  -u unlimited
+#ulimit -S  -u unlimited
 ulimit -S  -v unlimited
 ulimit -S  -x unlimited
 

@@ -73,7 +73,24 @@ ENV TERM xterm
 #RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
 #    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
-USER root
+#USER root
+
+#RUN /assets/setup
+
+RUN chmod -R a+rwx ${APP_HOME} && \
+    chown -R 1001:0 ${APP_HOME} && \
+    chmod -R a+rwx /var/opt/gitlab && \
+    chown -R 1001:0 /var/opt/gitlab && \
+    chmod -R a+rwx /etc/gitlab && \
+    chown -R 1001:0 /etc/gitlab && \
+    chmod -R a+rwx /var/log/gitlab && \
+    chown -R 1001:0 /var/log/gitlab && \
+    chmod -R a+rwx ${HOME} && \
+    chown -R 1001:0 ${HOME} && \
+    chmod -R g=u /etc/passwd && \
+    chmod -R g=u /etc/security/limits.conf && \
+    chmod -R a+rwx /assets && \
+    chown -R 1001:0 /assets
 
 RUN /assets/setup
 
