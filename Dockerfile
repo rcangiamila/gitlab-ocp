@@ -79,6 +79,8 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 /etc/gitlab && \
     chmod -R a+rwx /var/log/gitlab && \
     chown -R 1001:0 /var/log/gitlab && \
+    chmod -R a+rwx ${HOME} && \
+    chown -R 1001:0 ${HOME} && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
     chmod -R a+rwx /assets && \
