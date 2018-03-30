@@ -25,24 +25,24 @@ sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/co
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/config.rb
 
 # Create groups
-#groupadd -g 1001 git
-#groupadd -g 1002 gitlab-www
-#groupadd -g 1003 gitlab-redis
-#groupadd -g 1004 gitlab-psql
-#groupadd -g 1005 mattermost
-#groupadd -g 1006 registry
-#groupadd -g 1007 gitlab-prometheus
-#groupadd -g 1008 gitlab-consul
+groupadd -g 1001 git
+groupadd -g 1002 gitlab-www
+groupadd -g 1003 gitlab-redis
+groupadd -g 1004 gitlab-psql
+groupadd -g 1005 mattermost
+groupadd -g 1006 registry
+groupadd -g 1007 gitlab-prometheus
+groupadd -g 1008 gitlab-consul
 
 # Create accounts
-#useradd -m -u 1001 -g 0 -m -s /bin/sh -d /var/opt/gitlab git
-#useradd -m -u 1002 -g gitlab-www -m -s /bin/false -d /var/opt/gitlab/nginx gitlab-www
-#useradd -m -u 1003 -g gitlab-redis -m -s /bin/false -d /var/opt/gitlab/redis gitlab-redis
-#useradd -m -u 1004 -g gitlab-psql -m -s /bin/sh -d /var/opt/gitlab/postgresql gitlab-psql
-#useradd -m -u 1005 -g mattermost -m -s /bin/sh -d /var/opt/gitlab/mattermost mattermost
-#useradd -m -u 1006 -g registry -m -s /bin/sh -d /var/opt/gitlab/registry registry
-#useradd -m -u 1007 -g gitlab-prometheus -m -s /bin/sh -d /var/opt/gitlab/prometheus gitlab-prometheus
-#useradd -m -u 1008 -g gitlab-consul -m -s /bin/sh -d /var/opt/gitlab/consul gitlab-consul
+useradd -m -u 1001 -g 0 -m -s /bin/sh -d /var/opt/gitlab git
+useradd -m -u 1002 -g gitlab-www -m -s /bin/false -d /var/opt/gitlab/nginx gitlab-www
+useradd -m -u 1003 -g gitlab-redis -m -s /bin/false -d /var/opt/gitlab/redis gitlab-redis
+useradd -m -u 1004 -g gitlab-psql -m -s /bin/sh -d /var/opt/gitlab/postgresql gitlab-psql
+useradd -m -u 1005 -g mattermost -m -s /bin/sh -d /var/opt/gitlab/mattermost mattermost
+useradd -m -u 1006 -g registry -m -s /bin/sh -d /var/opt/gitlab/registry registry
+useradd -m -u 1007 -g gitlab-prometheus -m -s /bin/sh -d /var/opt/gitlab/prometheus gitlab-prometheus
+useradd -m -u 1008 -g gitlab-consul -m -s /bin/sh -d /var/opt/gitlab/consul gitlab-consul
 
 #chmod -R a+rwx /opt/gitlab
 #chown -R 1001:0 /opt/gitlab
