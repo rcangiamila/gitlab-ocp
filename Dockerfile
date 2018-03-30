@@ -44,7 +44,8 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared/pages && \
     mkdir -p /var/opt/gitlab/gitlab-ci/builds && \
     mkdir -p /var/opt/gitlab/.ssh && \
-    mkdir -p /var/opt/gitlab/redis
+    mkdir -p /var/opt/gitlab/redis && \
+    mkdir -p /var/opt/gitlab/postgresql
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
