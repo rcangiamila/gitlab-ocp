@@ -79,6 +79,9 @@ ENV TERM xterm
 
 #RUN /assets/setup
 
+# Define data volumes
+VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
+
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
     chmod -R a+rwx /var/opt/gitlab && \
@@ -115,11 +118,12 @@ RUN chmod -R a+rwx ${APP_HOME} && \
 EXPOSE 8443 8080 2222
 
 # Define data volumes
-VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
+#VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
 
 USER 1001
 
-WORKDIR ${APP_HOME}
+#WORKDIR ${APP_HOME}
+#which
 
 ENTRYPOINT [ "uid_entrypoint" ]
 
