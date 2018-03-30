@@ -68,7 +68,7 @@ ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 ENV TERM xterm
 
 ####TEST
-RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
+#RUN cp /assets/gitlab.rb /etc/gitlab/gitlab.rb
 
 RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
     cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
