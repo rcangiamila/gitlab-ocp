@@ -29,6 +29,8 @@ gitlab_rails['gitlab_shell_ssh_port'] = 2222
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
 
+unicorn['port'] = 8080
+
 # Get hostname from shell
 host = `hostname`.strip
 external_url "http://#{host}"
