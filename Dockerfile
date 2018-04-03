@@ -17,7 +17,7 @@ ENV HOME=/var/opt/gitlab
 # Install required packages
 RUN yum install -y epel-release
 
-RUN INSTALL_PACKAGES="ca-certificates openssh-server wget vim tzdata nano varnish gettext nss_wrapper curl sed which" && \ 
+RUN INSTALL_PACKAGES="deltarpm ca-certificates openssh-server wget vim-enhanced tzdata nano varnish gettext nss_wrapper curl sed which" && \ 
     yum install -y --setopt=tsflags=nodocs $INSTALL_PACKAGES && \
     rpm -V $INSTALL_PACKAGES && \
     GITLAB_REPOSIROTY_SCRIPT_URL="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh" && \
