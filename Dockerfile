@@ -45,7 +45,8 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/opt/gitlab/gitlab-ci/builds && \
     mkdir -p /var/opt/gitlab/.ssh && \
     mkdir -p /var/opt/gitlab/redis && \
-    mkdir -p /var/opt/gitlab/postgresql
+    mkdir -p /var/opt/gitlab/postgresql && \
+    mkdir -p /gitlab-data
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
@@ -95,7 +96,9 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
     chmod -R a+rwx /assets && \
-    chown -R 1001:0 /assets
+    chown -R 1001:0 /assets && \
+    chmod -R a+rwx /gitlab-data && \
+    chown -R 1001:0 /gitlab-data
 
 RUN /assets/setup
 
@@ -112,7 +115,9 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
     chmod -R a+rwx /assets && \
-    chown -R 1001:0 /assets
+    chown -R 1001:0 /assets && \
+    chmod -R a+rwx /gitlab-data && \
+    chown -R 1001:0 /gitlab-data
 
 # Expose web & ssh
 EXPOSE 8443 8080 2222
