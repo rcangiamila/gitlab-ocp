@@ -37,8 +37,8 @@ unicorn['username'] = 'git'
 unicorn['gid'] = 0
 
 # Get hostname from shell
-#host = `hostname`.strip
-#external_url "http://#{host}"
+host = `hostname`.strip
+external_url "http://#{host}"
 
 # Load custom config from environment variable: GITLAB_OMNIBUS_CONFIG
 # Disabling the cop since rubocop considers using eval to be security risk but
