@@ -65,9 +65,6 @@ ENV TERM xterm
 # Expose web & ssh
 EXPOSE 8443 8080 2222
 
-# Define data volumes
-VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
-
 RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
     cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
     chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
@@ -95,6 +92,9 @@ RUN chmod -R a+rwx ${APP_HOME} && \
 USER 1001
 
 ENTRYPOINT [ "uid_entrypoint" ]
+
+# Define data volumes
+VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
