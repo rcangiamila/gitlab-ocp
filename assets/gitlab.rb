@@ -6,11 +6,13 @@ manage_storage_directories['enable'] = false
 postgresql['enable'] = false
 redis['enable'] = false
 
+nginx['listen_port'] = 8080
+
 gitlab_shell['auth_file'] = '/gitlab-data/ssh/authorized_keys'
 git_data_dirs({ 'default' => { 'path' => '/gitlab-data/git-data' } }) 
 gitlab_rails['shared_path'] = '/gitlab-data/shared'
 gitlab_rails['uploads_directory'] = '/gitlab-data/uploads'
-gitlab_rails['auto_migrate'] = false
+#gitlab_rails['auto_migrate'] = false
 gitlab_ci['builds_directory'] = '/gitlab-data/builds'
 
 # GitLab
