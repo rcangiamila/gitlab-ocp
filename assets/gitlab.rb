@@ -27,6 +27,7 @@ web_server['gid'] = 0
 web_server['listen_port'] = 8080
 
 gitlab_rails['gitlab_shell_ssh_port'] = 2222
+gitlab_rails['port'] = 8080
 
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
