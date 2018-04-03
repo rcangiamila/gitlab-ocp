@@ -46,6 +46,7 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/opt/gitlab/.ssh && \
     mkdir -p /var/opt/gitlab/redis && \
     mkdir -p /var/opt/gitlab/postgresql && \
+    mkdir -p /gitlab-data/ && \
     mkdir -p /gitlab-data/ssh
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
@@ -81,7 +82,7 @@ ENV TERM xterm
 #RUN /assets/setup
 
 # Define data volumes
-VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
+#VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
@@ -123,7 +124,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
 EXPOSE 8443 8080 2222
 
 # Define data volumes
-#VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
+VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/gitlab-data"]
 
 USER 1001
 
