@@ -7,10 +7,11 @@ postgresql['enable'] = false
 redis['enable'] = false
 
 gitlab_shell['auth_file'] = '/gitlab-data/ssh/authorized_keys'
-git_data_dirs({ 'default' => { 'path' => '/gitlab-data/git-data' } }); 
-gitlab_rails['shared_path'] = '/gitlab-data/shared'; 
-gitlab_rails['uploads_directory'] = '/gitlab-data/uploads'; 
-gitlab_ci['builds_directory'] = '/gitlab-data/builds';
+git_data_dirs({ 'default' => { 'path' => '/gitlab-data/git-data' } }) 
+gitlab_rails['shared_path'] = '/gitlab-data/shared'
+gitlab_rails['uploads_directory'] = '/gitlab-data/uploads'
+gitlab_rails['auto_migrate'] = false
+gitlab_ci['builds_directory'] = '/gitlab-data/builds'
 
 # GitLab
 user['username'] = 'git'
