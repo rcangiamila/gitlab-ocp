@@ -12,12 +12,11 @@ printf "#!/bin/sh\nexec svlogd -tt /var/log/gitlab/sshd" > /opt/gitlab/sv/sshd/l
 chmod a+x /opt/gitlab/sv/sshd/run /opt/gitlab/sv/sshd/log/run
 mkdir -p /var/run/sshd
 
+chmod -R a+rwx /var/run/sshd
+chown -R 1001:0 /var/run/sshd
+
 # Remove current gitlab.rb file
-#rm -f /etc/gitlab/gitlab.rb
-
-#rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb
-
-#cp gitlab.rb /etc/gitlab/gitlab.rb
+rm -f /etc/gitlab/gitlab.rb
 
 # Patch omnibus package
 sed -i "s/external_url 'GENERATED_EXTERNAL_URL'/# external_url 'GENERATED_EXTERNAL_URL'/" /opt/gitlab/etc/gitlab.rb.template
@@ -29,6 +28,7 @@ groupadd -g 1001 git
 groupadd -g 1002 gitlab-www
 groupadd -g 1003 gitlab-redis
 groupadd -g 1004 gitlab-psql
+
 groupadd -g 1005 mattermost
 groupadd -g 1006 registry
 groupadd -g 1007 gitlab-prometheus
@@ -36,65 +36,10 @@ groupadd -g 1008 gitlab-consul
 
 # Create accounts
 useradd -m -u 1001 -g 0 -m -s /bin/sh -d /var/opt/gitlab git
-useradd -m -u 1002 -g gitlab-www -m -s /bin/false -d /var/opt/gitlab/nginx gitlab-www
-useradd -m -u 1003 -g gitlab-redis -m -s /bin/false -d /var/opt/gitlab/redis gitlab-redis
-useradd -m -u 1004 -g gitlab-psql -m -s /bin/sh -d /var/opt/gitlab/postgresql gitlab-psql
-useradd -m -u 1005 -g mattermost -m -s /bin/sh -d /var/opt/gitlab/mattermost mattermost
-useradd -m -u 1006 -g registry -m -s /bin/sh -d /var/opt/gitlab/registry registry
-useradd -m -u 1007 -g gitlab-prometheus -m -s /bin/sh -d /var/opt/gitlab/prometheus gitlab-prometheus
-useradd -m -u 1008 -g gitlab-consul -m -s /bin/sh -d /var/opt/gitlab/consul gitlab-consul
-
-#chmod -R a+rwx /opt/gitlab
-#chown -R 1001:0 /opt/gitlab
-
-chmod -R a+rwx /var/run/sshd
-chown -R 1001:0 /var/run/sshd
-
-#chmod -R a+rwx /etc/gitlab
-#chown -R 1001:0 /etc/gitlab
-
-#chmod -R a+rwx /var/log/gitlab
-#chown -R 1001:0 /var/log/gitlab
-
-#chmod -R a+rwx /var/opt/gitlab
-#chown -R 1001:0 /var/opt/gitlab
-
-
-####### TEST
-# Copy gitlab.rb for the first time
-if [[ ! -e /etc/gitlab/gitlab.rb ]]; then
-        echo "Installing gitlab.rb config..."
-        cp /opt/gitlab/etc/gitlab.rb.template /etc/gitlab/gitlab.rb
-        #chmod 0777 /etc/gitlab/gitlab.rb
-fi
-
-# Generate ssh host key for the first time
-if [[ ! -f /etc/gitlab/ssh_host_rsa_key ]]; then
-        echo "Generating ssh_host_rsa_key..."
-        ssh-keygen -f /etc/gitlab/ssh_host_rsa_key -N '' -t rsa
-        #chmod 0777 /etc/gitlab/ssh_host_rsa_key
-fi
-if [[ ! -f /etc/gitlab/ssh_host_ecdsa_key ]]; then
-        echo "Generating ssh_host_ecdsa_key..."
-        ssh-keygen -f /etc/gitlab/ssh_host_ecdsa_key -N '' -t ecdsa
-        #chmod 0777 /etc/gitlab/ssh_host_ecdsa_key
-fi
-if [[ ! -f /etc/gitlab/ssh_host_ed25519_key ]]; then
-        echo "Generating ssh_host_ed25519_key..."
-        ssh-keygen -f /etc/gitlab/ssh_host_ed25519_key -N '' -t ed25519
-        #chmod 0777 /etc/gitlab/ssh_host_ed25519_key
-fi
-
-# Remove all services, the reconfigure will create them
-echo "Preparing services..."
-rm -f /opt/gitlab/service/*
-ln -s /opt/gitlab/sv/sshd /opt/gitlab/service
-ln -sf /opt/gitlab/embedded/bin/sv /opt/gitlab/init/sshd
-mkdir -p /var/log/gitlab/sshd
-
-# Start service manager
-echo "Starting services..."
-GITLAB_OMNIBUS_CONFIG= /opt/gitlab/embedded/bin/runsvdir-start &
-
-echo "Configuring GitLab..."
-gitlab-ctl reconfigure
+useradd -m -u 1002 -g 0 -m -s /bin/false -d /var/opt/gitlab/nginx gitlab-www
+useradd -m -u 1003 -g 0 -m -s /bin/false -d /var/opt/gitlab/redis gitlab-redis
+useradd -m -u 1004 -g 0 -psql -m -s /bin/sh -d /var/opt/gitlab/postgresql gitlab-psql
+useradd -m -u 1005 -g 0 -m -s /bin/sh -d /var/opt/gitlab/mattermost mattermost
+useradd -m -u 1006 -g 0 -m -s /bin/sh -d /var/opt/gitlab/registry registry
+useradd -m -u 1007 -g 0 -prometheus -m -s /bin/sh -d /var/opt/gitlab/prometheus gitlab-prometheus
+useradd -m -u 1008 -g 0 -consul -m -s /bin/sh -d /var/opt/gitlab/consul gitlab-consul
