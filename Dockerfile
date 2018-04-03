@@ -31,6 +31,7 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/opt/gitlab && \
     mkdir -p /var/log/gitlab && \
     mkdir -p /var/log/gitlab/sshd && \
+    mkdir -p /var/log/gitlab/reconfigure && \
     mkdir -p /var/opt/gitlab/git-data && \
     mkdir -p /var/opt/gitlab/git-data/repositories && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared && \
