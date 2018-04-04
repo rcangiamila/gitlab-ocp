@@ -28,6 +28,7 @@ RUN INSTALL_PACKAGES="deltarpm ca-certificates openssh-server wget vim-enhanced 
     rm -rf /var/cache/yum
 
 RUN mkdir -p ${APP_HOME} && \
+    mkdir -p ${APP_HOME}/embedded/etc
     mkdir -p /etc/gitlab && \
     mkdir -p /var/opt/gitlab && \
     mkdir -p /var/log/gitlab && \
