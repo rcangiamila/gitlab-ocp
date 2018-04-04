@@ -71,8 +71,13 @@ EXPOSE 8443 8080 2222
 #    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
 #    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
 
-RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
+RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+    sed -i 's/mode "0755"/mode "0777"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+    sed -i 's/mode "0775"/mode "0777"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+    sed -i 's/owner "root"/owner "git"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb
+
+#RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+#    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
