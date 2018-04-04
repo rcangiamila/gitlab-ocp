@@ -3,12 +3,12 @@ FROM centos:centos7
 #SHELL ["/bin/sh", "-c"],
 
 ENV NAME=gitlab-ce \
-    GITLAB_VERSION=10.60 \
+    GITLAB_VERSION=10.62 \
     GITLAB_SHORT_VER=106 \
-    VERSION=0 \
+    VERSION=2 \
     PACKAGECLOUD_REPO=gitlab-ce \
     RELEASE_PACKAGE=gitlab-ce \
-    RELEASE_VERSION=10.61-ce
+    RELEASE_VERSION=10.62-ce
 
 ENV APP_HOME=/opt/gitlab
 ENV HOME=/var/opt/gitlab
@@ -69,8 +69,8 @@ EXPOSE 8443 8080 2222
 #    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
 #    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
 
-#RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-#    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
+RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
