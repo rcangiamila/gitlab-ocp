@@ -106,8 +106,7 @@ EXPOSE 8443 8080 2222
 RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
     sed -i 's/mode "0755"/mode "0777"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
     sed -i 's/mode "0775"/mode "0777"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-    sed -i 's/owner "root"/owner "git"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-    sed -i 's/group "root"/group "0"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb
+    sed -i 's/owner "root"/owner "git"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb
 
 #RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
 #    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
@@ -136,7 +135,7 @@ USER 1001
 ENTRYPOINT [ "uid_entrypoint" ]
 
 # Define data volumes
-VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
+VOLUME ["/etc/gitlab", "/opt/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
