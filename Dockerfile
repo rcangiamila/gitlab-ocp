@@ -94,7 +94,9 @@ RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recip
 #RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
 #    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
-RUN chmod -R a+rwx ${APP_HOME} && \
+RUN chmod -R a+rwx /var && \
+    chown -R 1001:0 /var && \ 
+    chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
     chmod -R a+rwx /var/opt/gitlab && \
     chown -R 1001:0 /var/opt/gitlab && \
