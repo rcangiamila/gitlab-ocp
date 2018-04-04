@@ -99,9 +99,9 @@ ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 # Expose web & ssh
 EXPOSE 8443 8080 2222
 
-#RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
-#    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
-#    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
+RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
+    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
+    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
 
 RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
     sed -i 's/mode "0755"/mode "0777"/g' /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
