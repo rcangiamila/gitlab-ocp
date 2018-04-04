@@ -28,7 +28,23 @@ RUN INSTALL_PACKAGES="deltarpm ca-certificates openssh-server wget vim-enhanced 
     rm -rf /var/cache/yum
 
 RUN mkdir -p ${APP_HOME} && \
-    mkdir -p ${APP_HOME}/embedded/etc
+    mkdir -p ${APP_HOME}/LICENSES && \ 
+    mkdir -p ${APP_HOME}/bin && \
+    mkdir -p ${APP_HOME}/embedded && \  
+    mkdir -p ${APP_HOME}/embedded/etc && \
+    mkdir -p ${APP_HOME}/etc && \
+    mkdir -p ${APP_HOME}/init && \  
+    mkdir -p ${APP_HOME}/service && \  
+    mkdir -p ${APP_HOME}/sv && \  
+    mkdir -p ${APP_HOME}/sv/gitlab-workhorse && \ 
+    mkdir -p ${APP_HOME}/sv/logrotate && \ 
+    mkdir -p ${APP_HOME}/sv/nginx && \ 
+    mkdir -p ${APP_HOME}/sv/postgresql && \  
+    mkdir -p ${APP_HOME}/sv/redis && \  
+    mkdir -p ${APP_HOME}/sv/sidekiq && \ 
+    mkdir -p ${APP_HOME}/sv/sshd && \ 
+    mkdir -p ${APP_HOME}/sv/unicorn && \
+    mkdir -p ${APP_HOME}/var && \
     mkdir -p /etc/gitlab && \
     mkdir -p /var/opt/gitlab && \
     mkdir -p /var/log/gitlab && \
