@@ -33,6 +33,7 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/log/gitlab && \
     mkdir -p /var/log/gitlab/sshd && \
     mkdir -p /var/log/gitlab/reconfigure && \
+    mkdir -p /var/log/gitlab/gitlab-workhorse && \
     mkdir -p /var/opt/gitlab/git-data && \
     mkdir -p /var/opt/gitlab/git-data/repositories && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared && \
@@ -41,6 +42,7 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/opt/gitlab/gitlab-rails/uploads && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared/pages && \
     mkdir -p /var/opt/gitlab/gitlab-ci/builds && \
+    mkdir -p /var/opt/gitlab/gitlab-workhorse && \
     mkdir -p /var/opt/gitlab/.ssh && \
     mkdir -p /var/opt/gitlab/redis && \
     mkdir -p /var/opt/gitlab/postgresql && \
