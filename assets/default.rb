@@ -126,6 +126,7 @@ include_recipe "gitlab::logrotate_folders_and_configs"
   "gitlab-pages",
   "registry"
 ].each do |service|
+  puts "SERVICE: #{service}."
   if node["gitlab"][service]["enable"]
     include_recipe "gitlab::#{service}"
   else

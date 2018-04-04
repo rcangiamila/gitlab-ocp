@@ -1,12 +1,12 @@
 # Manage accounts with docker
-#node['gitlab']['gitlab-ci']['user'] = 'git'
 
 manage_accounts['enable'] = false
 manage_storage_directories['enable'] = false
+manage_storage_directories['manage_etc'] = false
 postgresql['enable'] = false
 redis['enable'] = false
 
-nginx['listen_port'] = 8080
+#nginx['listen_port'] = 8080
 
 gitlab_shell['auth_file'] = '/gitlab-data/ssh/authorized_keys'
 git_data_dirs({ 'default' => { 'path' => '/gitlab-data/git-data' } }) 
