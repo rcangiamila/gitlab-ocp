@@ -12,7 +12,8 @@ ENV NAME=gitlab-ce \
 
 ENV APP_HOME=/opt/gitlab
 ENV HOME=/var/opt/gitlab
-#ENV HOME=${APP_HOME}
+
+ENV TERM xterm
 
 # Install required packages
 RUN yum install -y epel-release
@@ -60,7 +61,6 @@ RUN /assets/setup
 
 ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 
-ENV TERM xterm
 
 # Expose web & ssh
 EXPOSE 8443 8080 2222

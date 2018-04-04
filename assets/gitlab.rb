@@ -23,17 +23,19 @@ user['gid'] = 0
 
 # Web server
 web_server['username'] = 'git'
+web_server['group'] = 'root'
 web_server['gid'] = 0
-web_server['listen_port'] = 8080
+#web_server['listen_port'] = 8080
 
 gitlab_rails['gitlab_shell_ssh_port'] = 2222
-gitlab_rails['port'] = 8080
+#gitlab_rails['port'] = 8080
 
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
 
 unicorn['port'] = 8080
 unicorn['username'] = 'git'
+unicorn['group'] = 'root'
 unicorn['gid'] = 0
 
 # Get hostname from shell
