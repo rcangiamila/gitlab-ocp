@@ -2,8 +2,7 @@
 
 if ! whoami &> /dev/null; then
   if [ -w /etc/passwd ]; then
-    #echo "${USER_NAME:-git}:x:$(id -u):0:${USER_NAME:-git} user:${HOME}:/bin/sh" >> /etc/passwd
-    echo "${USER_NAME:-git}:x:$(id -u):root:${USER_NAME:-git} user:${HOME}:/bin/sh" >> /etc/passwd
+    echo "${USER_NAME:-git}:x:$(id -u):0:${USER_NAME:-git} user:${HOME}:/bin/sh" >> /etc/passwd
   fi
 fi
 exec "$@"
