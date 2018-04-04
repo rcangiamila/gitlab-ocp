@@ -135,7 +135,7 @@ USER 1001
 ENTRYPOINT [ "/assets/uid_entrypoint" ]
 
 # Define data volumes
-VOLUME ["/etc/gitlab", "/opt/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
+VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 CMD ["/assets/wrapper"]
