@@ -4,7 +4,7 @@ set -e
 
 sed -i 's/ID_USER/'"$(id -u)"'/g' /assets/gitlab.rb
 
-cat /assets/gitlab.rb
+id
 
 function sigterm_handler() {
     echo "SIGTERM signal received, try to gracefully shutdown all services..."
@@ -58,7 +58,7 @@ mkdir -p /var/log/gitlab/sshd
 echo "Starting services..."
 GITLAB_OMNIBUS_CONFIG= /opt/gitlab/embedded/bin/runsvdir-start &
 
-#echo "Configuring GitLab..."
+echo "Configuring GitLab..."
 gitlab-ctl reconfigure
 
 # Make sure PostgreSQL is at the latest version.
