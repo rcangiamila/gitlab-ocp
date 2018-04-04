@@ -46,7 +46,6 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p ${APP_HOME}/sv/unicorn && \
     mkdir -p ${APP_HOME}/var && \
     mkdir -p /etc/gitlab && \
-    mkdir -p /var/opt/gitlab && \
     mkdir -p /var/log/gitlab && \
     mkdir -p /var/log/gitlab/sshd && \
     mkdir -p /var/log/gitlab/reconfigure && \
@@ -62,6 +61,7 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/log/gitlab/sidekiq && \ 
     mkdir -p /var/log/gitlab/sshd && \ 
     mkdir -p /var/log/gitlab/unicorn && \
+    mkdir -p /var/opt/gitlab && \
     mkdir -p /var/opt/gitlab/git-data && \
     mkdir -p /var/opt/gitlab/git-data/repositories && \
     mkdir -p /var/opt/gitlab/gitlab-rails/etc && \
@@ -95,7 +95,6 @@ RUN /assets/setup
 
 ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 
-
 # Expose web & ssh
 EXPOSE 8443 8080 2222
 
@@ -111,20 +110,14 @@ RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recip
 #RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
 #    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
-RUN chmod -R a+rwx /opt && \
-    chown -R 1001:0 /opt && \
-    chmod -R a+rwx /var && \
-    chown -R 1001:0 /var && \ 
-    chmod -R a+rwx ${APP_HOME} && \
+RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
-    chmod -R a+rwx /var/opt/gitlab && \
-    chown -R 1001:0 /var/opt/gitlab && \
+    chmod -R a+rwx ${HOME} && \
+    chown -R 1001:0 ${HOME} && \
     chmod -R a+rwx /etc/gitlab && \
     chown -R 1001:0 /etc/gitlab && \
     chmod -R a+rwx /var/log/gitlab && \
     chown -R 1001:0 /var/log/gitlab && \
-    chmod -R a+rwx ${HOME} && \
-    chown -R 1001:0 ${HOME} && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
     chmod -R a+rwx /assets && \
