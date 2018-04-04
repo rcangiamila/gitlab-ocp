@@ -34,20 +34,35 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/log/gitlab/sshd && \
     mkdir -p /var/log/gitlab/reconfigure && \
     mkdir -p /var/log/gitlab/gitlab-workhorse && \
+    mkdir -p /var/log/gitlab/gitlab-rails && \
+    mkdir -p /var/log/gitlab/gitlab-shell && \ 
+    mkdir -p /var/log/gitlab/gitlab-workhorse && \ 
+    mkdir -p /var/log/gitlab/logrotate && \ 
+    mkdir -p /var/log/gitlab/nginx && \ 
+    mkdir -p /var/log/gitlab/postgresql && \ 
+    mkdir -p /var/log/gitlab/reconfigure && \  
+    mkdir -p /var/log/gitlab/redis && \ 
+    mkdir -p /var/log/gitlab/sidekiq && \ 
+    mkdir -p /var/log/gitlab/sshd && \ 
+    mkdir -p /var/log/gitlab/unicorn && \
     mkdir -p /var/opt/gitlab/git-data && \
     mkdir -p /var/opt/gitlab/git-data/repositories && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/etc && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared/artifacts && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared/lfs-objects && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/uploads && \
     mkdir -p /var/opt/gitlab/gitlab-rails/shared/pages && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/uploads && \
+    mkdir -p /var/opt/gitlab/gitlab-rails/working && \
     mkdir -p /var/opt/gitlab/gitlab-ci/builds && \
     mkdir -p /var/opt/gitlab/gitlab-workhorse && \
+    mkdir -p /var/opt/gitlab/gitlab-shell && \
+    mkdir -p /var/opt/gitlab/backups && \
+    mkdir -p /var/opt/gitlab/logrotate && \
+    mkdir -p /var/opt/gitlab/nginx && \
     mkdir -p /var/opt/gitlab/.ssh && \
     mkdir -p /var/opt/gitlab/redis && \
-    mkdir -p /var/opt/gitlab/postgresql && \
-    mkdir -p /gitlab-data/ && \
-    mkdir -p /gitlab-data/ssh
+    mkdir -p /var/opt/gitlab/postgresql
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
@@ -92,9 +107,7 @@ RUN chmod -R a+rwx ${APP_HOME} && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
     chmod -R a+rwx /assets && \
-    chown -R 1001:0 /assets && \
-    chmod -R a+rwx /gitlab-data && \
-    chown -R 1001:0 /gitlab-data
+    chown -R 1001:0 /assets
 
 USER 1001
 
