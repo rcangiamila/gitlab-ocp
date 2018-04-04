@@ -65,12 +65,12 @@ ENV TERM xterm
 # Expose web & ssh
 EXPOSE 8443 8080 2222
 
-RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
-    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
-    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
+#RUN rm -rf ${APP_HOME}/embedded/bin/runsvdir-start && \
+#    cp /assets/runsvdir-start ${APP_HOME}/embedded/bin/ && \
+#    chmod a+x ${APP_HOME}/embedded/bin/runsvdir-start
 
-RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
-    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
+#RUN rm -f /opt/gitlab/embedded/cookbooks/gitlab/recipes/default.rb && \
+#    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
 RUN chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
