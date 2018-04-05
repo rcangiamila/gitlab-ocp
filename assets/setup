@@ -35,7 +35,7 @@ sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/co
 #groupadd -g 1008 gitlab-consul
 
 # Create accounts
-#useradd -m -u 1001 -g 0 -m -s /bin/sh -d /var/opt/gitlab git
+useradd -m -u 1001 -g 0 -m -s /sbin/nologin -d /var/opt/gitlab git
 #useradd -m -u 1002 -g 0 -m -s /bin/false -d /var/opt/gitlab/nginx gitlab-www
 #useradd -m -u 1003 -g 0 -m -s /bin/false -d /var/opt/gitlab/redis gitlab-redis
 #useradd -m -u 1004 -g 0 -psql -m -s /bin/sh -d /var/opt/gitlab/postgresql gitlab-psql
