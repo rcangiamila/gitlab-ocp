@@ -114,10 +114,8 @@ RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recip
 
 RUN chmod -R a+rwx /var && \
     chown -R git:0 /var && \
-    chmod -R g=u /var && \
     chmod -R a+rwx /opt && \
     chown -R git:0 /opt && \
-    chmod -R g=u /opt && \
     chmod -R a+rwx ${APP_HOME} && \
     chown -R git:0 ${APP_HOME} && \
     chmod -R a+rwx ${HOME} && \
@@ -139,7 +137,9 @@ ENTRYPOINT [ "/assets/uid_entrypoint" ]
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
-CMD ["/assets/wrapper"]
+#CMD ["/assets/wrapper"]
 
-HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+#CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+
+CMD ["/assets/run"]
