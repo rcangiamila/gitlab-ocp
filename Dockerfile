@@ -137,9 +137,9 @@ ENTRYPOINT [ "/assets/uid_entrypoint" ]
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/reconfigure"]
 
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
-CMD ["/assets/wrapper"]
+#CMD ["/assets/wrapper"]
 
 HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
-CMD /opt/gitlab/bin/gitlab-healthcheck --fail
+#CMD /opt/gitlab/bin/gitlab-healthcheck --fail
 
-#CMD ["/assets/run"]
+CMD ["/assets/run"]
