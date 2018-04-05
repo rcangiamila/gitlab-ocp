@@ -8,8 +8,8 @@ redis['enable'] = false
 
 #nginx['listen_port'] = 8080
 
-gitlab_rails['gitlab_default_can_create_group'] = false
-gitlab_rails['gitlab_username_changing_enabled'] = false
+#gitlab_rails['gitlab_default_can_create_group'] = false
+#gitlab_rails['gitlab_username_changing_enabled'] = false
 
 gitlab_shell['auth_file'] = '/gitlab-data/ssh/authorized_keys'
 git_data_dirs({ 'default' => { 'path' => '/gitlab-data/git-data' } }) 

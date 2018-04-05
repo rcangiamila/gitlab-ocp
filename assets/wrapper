@@ -2,7 +2,7 @@
 
 set -e
 
-sed -i 's/ID_USER/'"$(id -u)"'/g' /assets/gitlab.rb
+#sed -i 's/ID_USER/'"$(id -u)"'/g' /assets/gitlab.rb
 
 function sigterm_handler() {
     echo "SIGTERM signal received, try to gracefully shutdown all services..."
