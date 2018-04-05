@@ -1,7 +1,7 @@
 # Manage accounts with docker
 
 manage_accounts['enable'] = false
-#manage_storage_directories['enable'] = false
+manage_storage_directories['enable'] = false
 manage_storage_directories['manage_etc'] = false
 postgresql['enable'] = false
 redis['enable'] = false
