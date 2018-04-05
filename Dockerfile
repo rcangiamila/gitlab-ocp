@@ -126,7 +126,7 @@ RUN chmod -R a+rwx /var && \
     #chown -R git:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
-    chmod -R a+rwx /assets && \
+    chmod -R a+rwx /assets
     #chown -R git:0 /assets
 
 USER 1001
