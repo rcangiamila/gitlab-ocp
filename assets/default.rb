@@ -1,4 +1,3 @@
-#
 # Copyright:: Copyright (c) 2012 Opscode, Inc.
 # Copyright:: Copyright (c) 2014 GitLab.com
 # License:: Apache License, Version 2.0
@@ -32,26 +31,26 @@ directory "/etc/gitlab" do
   only_if { node['gitlab']['manage-storage-directories']['manage_etc'] }
 end.run_action(:create)
 
-if File.exists?("/var/opt/gitlab/bootstrapped")
-	node.default['gitlab']['bootstrap']['enable'] = false
+if File.exist?("/var/opt/gitlab/bootstrapped")
+  node.default['gitlab']['bootstrap']['enable'] = false
 end
 
-directory "Create /var/opt/gitlab" do
-  path "/var/opt/gitlab"
-  owner "git"
-  group "root"
-  mode "0777"
-  recursive true
-  action :create
-end
+#directory "Create /var/opt/gitlab" do
+#  path "/var/opt/gitlab"
+#  owner "git"
+#  group "root"
+#  mode "0777"
+#  recursive true
+#  action :create
+#end
 
-directory "#{install_dir}/embedded/etc" do
-  owner "git"
-  group "root"
-  mode "0777"
-  recursive true
-  action :create
-end
+#directory "#{install_dir}/embedded/etc" do
+#  owner "git"
+#  group "root"
+#  mode "0777"
+#  recursive true
+#  action :create
+#end
 
 template "#{install_dir}/embedded/etc/gitconfig" do
   source "gitconfig-system.erb"
@@ -69,8 +68,6 @@ if node['gitlab']['gitlab-rails']['enable']
   include_recipe "gitlab::gitlab-rails"
 end
 
-#include_recipe "gitlab::gitlab-ci-proxying"
-
 include_recipe "gitlab::selinux"
 
 # add trusted certs recipe
@@ -78,13 +75,11 @@ include_recipe "gitlab::add_trusted_certs"
 
 # Create dummy unicorn and sidekiq services to receive notifications, in case
 # the corresponding service recipe is not loaded below.
-[
-  "unicorn",
-  "ci-unicorn",
-  "sidekiq",
-  "ci-sidekiq",
-  "mailroom"
-].each do |dummy|
+%w(
+  unicorn
+  sidekiq
+  mailroom
+).each do |dummy|
   service "create a temporary #{dummy} service" do
     service_name dummy
     supports []
@@ -105,7 +100,9 @@ include_recipe "runit"
     include_recipe "gitlab::#{service}_disable"
   end
 end
-include_recipe "gitlab::database_migrations" if node['gitlab']['gitlab-rails']['enable']
+if node['gitlab']['gitlab-rails']['enable'] && !node['gitlab']['pgbouncer']['enable']
+  include_recipe "gitlab::database_migrations"
+end
 
 # Always create logrotate folders and configs, even if the service is not enabled.
 # https://gitlab.com/gitlab-org/omnibus-gitlab/issues/508
@@ -115,18 +112,15 @@ include_recipe "gitlab::logrotate_folders_and_configs"
 [
   "unicorn",
   "sidekiq",
-  "gitaly",
   "gitlab-workhorse",
   "mailroom",
   "nginx",
   "remote-syslog",
   "logrotate",
   "bootstrap",
-  "mattermost",
   "gitlab-pages",
-  "registry"
+  "storage-check"
 ].each do |service|
-  puts "SERVICE: #{service}."
   if node["gitlab"][service]["enable"]
     include_recipe "gitlab::#{service}"
   else
@@ -134,13 +128,35 @@ include_recipe "gitlab::logrotate_folders_and_configs"
   end
 end
 
-# Configure healthcheck if we have the external_url set
-include_recipe "gitlab::gitlab-healthcheck" if Gitlab['external_url']
+%w(
+  registry
+  gitaly
+  mattermost
+).each do |service|
+  if node[service]["enable"]
+    include_recipe "#{service}::enable"
+  else
+    include_recipe "#{service}::disable"
+  end
+end
+# Configure healthcheck if we have nginx or workhorse enabled
+include_recipe "gitlab::gitlab-healthcheck" if node['gitlab']['nginx']['enable'] || node["gitlab"]["gitlab-workhorse"]["enable"]
 
 # Recipe which handles all prometheus related services
 include_recipe "gitlab::gitlab-prometheus"
 
-# Deprecated in favor of gitlab-workhorse since 8.2
-runit_service "gitlab-git-http-server" do
-  action :disable
+include_recipe 'letsencrypt::enable' if node['letsencrypt']['enable']
+
+# Deprecate skip-auto-migrations control file
+include_recipe "gitlab::deprecate-skip-auto-migrations"
+
+# Report on any deprecations we encountered at the end of the run
+Chef.event_handler do
+  on :run_completed do
+    LoggingHelper.report
+  end
+
+  on :run_failed do
+    LoggingHelper.report
+  end
 end
