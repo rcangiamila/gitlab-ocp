@@ -93,6 +93,8 @@ COPY RELEASE /
 COPY assets/ /assets/
 RUN /assets/setup
 
+RUN cat /etc/passwd > /etc/passwd.template
+
 ENV PATH=${APP_HOME}/embedded/bin:${APP_HOME}/bin:/assets:$PATH
 
 # Expose web & ssh

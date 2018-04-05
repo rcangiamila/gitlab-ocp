@@ -4,10 +4,9 @@ if ! whoami &> /dev/null; then
   if [ -w /etc/passwd ]; then
     echo "Setting runtime User ... "
 
-    cat /etc/passwd
-
     #echo "${USER_NAME:-git}:x:$(id -u):0:${USER_NAME:-git} user:${HOME}:/bin/sh" >> /etc/passwd
-    sed -i 's@git:x:1001:@git:x:"'$(id -u)'":@g' /etc/passwd
+
+    sed 's@git:x:1001:@git:x:'$(id -u)':@g' /etc/passwd.template > /etc/passwd
     sed -i 's/ID_USER/'"$(id -u)"'/g' /assets/gitlab.rb
 
     cat /etc/passwd
