@@ -9,8 +9,6 @@ if ! whoami &> /dev/null; then
     sed 's@git:x:1001:@git:x:'$(id -u)':@g' /etc/passwd.template > /etc/passwd
     sed -i 's/ID_USER/'"$(id -u)"'/g' /assets/gitlab.rb
 
-    cat /etc/passwd
-
   fi
 fi
 exec "$@"

@@ -113,21 +113,21 @@ RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recip
 #    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
 RUN chmod -R a+rwx /var && \
-    chown -R 1001:0 /var && \
+    chown -R git:0 /var && \
     chmod -R a+rwx /opt && \
-    chown -R 1001:0 /opt && \
+    chown -R git:0 /opt && \
     chmod -R a+rwx ${APP_HOME} && \
-    chown -R 1001:0 ${APP_HOME} && \
+    chown -R git:0 ${APP_HOME} && \
     chmod -R a+rwx ${HOME} && \
-    chown -R 1001:0 ${HOME} && \
+    chown -R git:0 ${HOME} && \
     chmod -R a+rwx /etc/gitlab && \
-    chown -R 1001:0 /etc/gitlab && \
+    chown -R git:0 /etc/gitlab && \
     chmod -R a+rwx /var/log/gitlab && \
-    chown -R 1001:0 /var/log/gitlab && \
+    chown -R git:0 /var/log/gitlab && \
     chmod -R g=u /etc/passwd && \
     chmod -R g=u /etc/security/limits.conf && \
     chmod -R a+rwx /assets && \
-    chown -R 1001:0 /assets
+    chown -R git:0 /assets
 
 USER 1001
 
