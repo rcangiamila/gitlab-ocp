@@ -61,25 +61,25 @@ RUN mkdir -p ${APP_HOME} && \
     mkdir -p /var/log/gitlab/sidekiq && \ 
     mkdir -p /var/log/gitlab/sshd && \ 
     mkdir -p /var/log/gitlab/unicorn && \
-    mkdir -p /var/opt/gitlab && \
-    mkdir -p /var/opt/gitlab/git-data && \
-    mkdir -p /var/opt/gitlab/git-data/repositories && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/etc && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/shared && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/shared/artifacts && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/shared/lfs-objects && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/shared/pages && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/uploads && \
-    mkdir -p /var/opt/gitlab/gitlab-rails/working && \
-    mkdir -p /var/opt/gitlab/gitlab-ci/builds && \
-    mkdir -p /var/opt/gitlab/gitlab-workhorse && \
-    mkdir -p /var/opt/gitlab/gitlab-shell && \
-    mkdir -p /var/opt/gitlab/backups && \
-    mkdir -p /var/opt/gitlab/logrotate && \
-    mkdir -p /var/opt/gitlab/nginx && \
-    mkdir -p /var/opt/gitlab/.ssh && \
-    mkdir -p /var/opt/gitlab/redis && \
-    mkdir -p /var/opt/gitlab/postgresql
+    mkdir -p ${HOME} && \
+    mkdir -p ${HOME}/git-data && \
+    mkdir -p ${HOME}/git-data/repositories && \
+    mkdir -p ${HOME}/gitlab-rails/etc && \
+    mkdir -p ${HOME}/gitlab-rails/shared && \
+    mkdir -p ${HOME}/gitlab-rails/shared/artifacts && \
+    mkdir -p ${HOME}/gitlab-rails/shared/lfs-objects && \
+    mkdir -p ${HOME}/gitlab-rails/shared/pages && \
+    mkdir -p ${HOME}/gitlab-rails/uploads && \
+    mkdir -p ${HOME}/gitlab-rails/working && \
+    mkdir -p ${HOME}/gitlab-ci/builds && \
+    mkdir -p ${HOME}/gitlab-workhorse && \
+    mkdir -p ${HOME}/gitlab-shell && \
+    mkdir -p ${HOME}/backups && \
+    mkdir -p ${HOME}/logrotate && \
+    mkdir -p ${HOME}/nginx && \
+    mkdir -p ${HOME}/.ssh && \
+    mkdir -p ${HOME}/redis && \
+    mkdir -p ${HOME}/postgresql
 
 RUN sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
 
@@ -111,6 +111,8 @@ RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recip
 #    cp /assets/default.rb /opt/gitlab/embedded/cookbooks/gitlab/recipes/
 
 RUN chmod -R a+rwx /var && \
+    chown -R 1001:0 /var && \
+    chmod -R a+rwx /opt && \
     chown -R 1001:0 /opt && \
     chmod -R a+rwx ${APP_HOME} && \
     chown -R 1001:0 ${APP_HOME} && \
