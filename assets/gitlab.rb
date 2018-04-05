@@ -1,7 +1,7 @@
 # Manage accounts with docker
 
 manage_accounts['enable'] = false
-manage_storage_directories['enable'] = false
+#manage_storage_directories['enable'] = false
 manage_storage_directories['manage_etc'] = false
 postgresql['enable'] = false
 redis['enable'] = false
@@ -21,14 +21,14 @@ gitlab_ci['builds_directory'] = '/gitlab-data/builds'
 # GitLab
 user['username'] = 'git'
 #user['group'] = 'root'
-user['uid'] = 'ID_USER'
+user['uid'] = ID_USER
 user['gid'] = 0
 #user['home'] = "/var/opt/gitlab"
 
 # Web server
 web_server['username'] = 'git'
 #web_server['group'] = 'root'
-web_server['uid'] = 'ID_USER'
+web_server['uid'] = ID_USER
 web_server['gid'] = 0
 #web_server['listen_port'] = 8080
 
@@ -41,7 +41,7 @@ postgresql['shared_buffers'] = '1MB'
 unicorn['port'] = 8080
 unicorn['username'] = 'git'
 #unicorn['group'] = 'root'
-unicorn['uid'] = 'ID_USER'
+unicorn['uid'] = ID_USER
 unicorn['gid'] = 0
 
 # Get hostname from shell
