@@ -114,8 +114,10 @@ RUN sed -i 's/mode 0755/mode 0777/g' /opt/gitlab/embedded/cookbooks/gitlab/recip
 
 RUN chmod -R a+rwx /var && \
     chown -R git:0 /var && \
+    chmod -R g=u /var && \
     chmod -R a+rwx /opt && \
     chown -R git:0 /opt && \
+    chmod -R g=u /opt && \
     chmod -R a+rwx ${APP_HOME} && \
     chown -R git:0 ${APP_HOME} && \
     chmod -R a+rwx ${HOME} && \
