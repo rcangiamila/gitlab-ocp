@@ -129,7 +129,7 @@ RUN chmod -R a+rwx /var && \
     chmod -R a+rwx /assets && \
     chown -R git:0 /assets
 
-#USER 1001
+USER 1001
 
 ENTRYPOINT [ "/assets/uid_entrypoint" ]
 
@@ -139,7 +139,7 @@ VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab", "/var/log/gitlab/re
 # Wrapper to handle signal, trigger runit and reconfigure GitLab
 #CMD ["/assets/wrapper"]
 
-HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
+#HEALTHCHECK --interval=60s --timeout=30s --retries=5 \
 #CMD /opt/gitlab/bin/gitlab-healthcheck --fail
 
 CMD ["/assets/run"]
